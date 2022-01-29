@@ -1,4 +1,4 @@
-package com.debug.debugflix.main
+package com.debug.debugflix.presenter.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.debug.debugflix.R
-import com.debug.debugflix.main.remoto.MovieResponse
+import com.debug.debugflix.presenter.model.MovieViewObject
 
 private const val basePosterUrl = "https://image.tmdb.org/t/p/w500/"
 
-class MoviesAdapter(
-    private val movies: List<MovieResponse>
-) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MovieAdapter(
+    private val movies: List<MovieViewObject>
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,9 +27,9 @@ class MoviesAdapter(
         val movie = movies[position]
 
         holder.apply {
-            movieName.text = movie.title
+            movieName.text = movie.name
             poster.load(
-                basePosterUrl + movie.posterPath
+                basePosterUrl + movie.poster
             )
         }
     }

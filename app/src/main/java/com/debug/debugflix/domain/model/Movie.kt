@@ -1,6 +1,6 @@
-package com.debug.debugflix.main.remoto
+package com.debug.debugflix.domain.model
 
-data class MovieResponse(
+data class Movie(
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,
@@ -15,11 +15,4 @@ data class MovieResponse(
     val video: Boolean,
     val voteAverage: Double,
     val voteCount: Int
-)
-
-data class BaseResponse<out T>(
-    val page: Int,
-    val results: T,
-    val totalPages: Int,
-    val totalResults: Int
 )
