@@ -3,12 +3,13 @@ package com.debug.debugflix.presenter
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.debug.debugflix.R
@@ -23,6 +24,7 @@ class MainFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var loading: ProgressBar
+    private lateinit var btn : Button
 
     companion object {
         fun newInstance() = MainFragment()
@@ -46,18 +48,22 @@ class MainFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.movies)
         loading = view.findViewById(R.id.loading)
+        btn = view.findViewById(R.id.retry)
+        btn.setOnClickListener {
+            viewModel.getMovies()
+        }
 
         setupObservers()
     }
 
     private fun setupObservers() {
-        viewModel.movies.observe(viewLifecycleOwner, { movies ->
+        viewModel.movies.observe(viewLifecycleOwner) { movies ->
             recyclerView.adapter = MovieAdapter(movies)
-        })
+        }
 
-        viewModel.viewState.observe(viewLifecycleOwner, { state ->
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
             setViewState(state)
-        })
+        }
     }
 
     private fun setViewState(state: ViewState) {

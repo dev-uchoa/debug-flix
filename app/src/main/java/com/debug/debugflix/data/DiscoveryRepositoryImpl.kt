@@ -1,6 +1,5 @@
 package com.debug.debugflix.data
 
-import com.debug.debugflix.BuildConfig
 import com.debug.debugflix.data.api.DiscoverAPI
 import com.debug.debugflix.data.exception.DiscoveryRepositoryException
 import com.debug.debugflix.data.model.toDomain
@@ -13,10 +12,10 @@ class DiscoveryRepositoryImpl @Inject constructor(
 
     override suspend fun getMovies(): List<Movie> {
         return try {
-            discoverService.getMovies(BuildConfig.tokenTMDB).results.map {
+            discoverService.getMovies().results.map {
                 it.toDomain()
             }
-        } catch (exception: Exception) {
+        } catch (ex: Exception){
             throw DiscoveryRepositoryException()
         }
     }
